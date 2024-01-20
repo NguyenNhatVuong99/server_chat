@@ -5,7 +5,7 @@ let Conversation = require('../models/Conversation');
 let Message = require("../models/Message")
 const { get } = require('mongoose');
 let limit = 30;
-let getUser = async () => {
+let getUser1 = async () => {
     try {
         return await User.findOne({
             email: 'nhatvuong99@gmail.com'
@@ -26,9 +26,8 @@ let getUser2 = async () => {
     }
 }
 let getUsers = async () => {
-    let user = await getUser()
     try {
-        return await User.find({ _id: { $ne: user["_id"] } }, "_id")
+        return await User.find({ _id: { $ne: '65a89222784268eee668e590' } }, "_id")
             .limit(limit)
     } catch (error) {
         console.log(error);
@@ -38,51 +37,60 @@ let getConversation = async () => {
     return await Conversation.find({})
 }
 const Seeder = async (req, res,) => {
-    try {
-        await Conversation.deleteMany({});
-        console.log("Conversations deleted.");
-    } catch (error) {
-        console.log(error);
-    }
-    let user = await getUser()
-    let user2 = await getUser2()
-    let users = await getUsers()
-    let arr = [user["_id"], user2["_id"]];
-    let newConver = new Conversation({
-        users: arr
-    })
-    await newConver.save()
-    for (let index = 1; index < limit; index++) {
-        let startDate = new Date('2023-11-01T00:00:00.000Z');
-        let endDate = new Date('2023-12-18T00:00:00.000Z');
-        let updatedAt = faker.date.between(startDate, endDate);
 
-        let arr = [user["_id"]];
-        arr.push(users[index]['_id'])
-        let newConver = new Conversation({
-            users: arr,
-            updatedAt: updatedAt
-        })
-        await newConver.save()
-    }
-    console.log('Conversations saved successfully')
-    // let conversations = await getConversation()
-    // conversations.forEach(item => {
-    //     let conver_id = item['_id'];
-    //     Message.find({ "conversation_id": conver_id }, "_id", (err, message) => {
-    //         Conversation.findByIdAndUpdate(conver_id, {
-    //             last_message_id: message[29]
-    //         },
-    //             function (err, docs) {
-    //                 if (err) {
-    //                     console.log(err)
-    //                 }
-    //                 else {
-    //                     console.log("Updated User : ", docs);
-    //                 }
-    //             });
+    // try {
+    //     await Conversation.deleteMany({});
+    //     console.log("Conversations deleted.");
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    // let user1 = await getUser1()
+    // // let user2 = await getUser2()
+    // let users = await getUsers()
+    // let arr = [user1["_id"], user2["_id"]];
+    // let newConver = new Conversation({
+    //     users: arr
+    // })
+    // await newConver.save()
+    // for (let index = 1; index < limit; index++) {
+    //     let startDate = new Date('2023-11-01T00:00:00.000Z');
+    //     let endDate = new Date('2023-12-18T00:00:00.000Z');
+    //     let updatedAt = faker.date.between({ startDate, endDate });
+    //     let arr = [user1["_id"]];
+    //     arr.push(users[index]['_id'])
+    //     let newConver = new Conversation({
+    //         users: arr,
+    //         updatedAt: updatedAt
     //     })
-    // });
+    //     await newConver.save()
+    // }
+    let conversations = await getConversation();
+
+    // Use Promise.all to wait for all asynchronous operations to complete
+    await Promise.all(conversations.map(async (item) => {
+        let conver_id = item['_id'];
+        try {
+            // Use the `await` keyword to handle the asynchronous operation
+            let messages = await Message.find({ "conversation_id": conver_id }, "_id");
+
+            // Assuming you want to get the last message, use messages[messages.length - 1]
+            let lastMessage = messages[messages.length - 1];
+
+            // Use findByIdAndUpdate with the 'await' keyword
+            let updatedConversation = await Conversation.findByIdAndUpdate(
+                conver_id,
+                { last_message_id: lastMessage },
+                { new: true } // To get the updated document
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    }));
+
+    // // The rest of your code after all conversations have been processed
+
+    console.log('Conversations saved successfully')
+
 }
 
 module.exports = { Seeder }

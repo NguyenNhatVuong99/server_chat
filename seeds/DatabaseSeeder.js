@@ -11,10 +11,10 @@ let DataSeeder = async () => {
         // await UserSeeder.Seeder()
         // await PostSeeder.Seeder()
         // await ParticipantSeeder.Seeder()
-        // await ConversationSeeder.Seeder()
+        await ConversationSeeder.Seeder()
         // await MessageSeeder.Seeder()
         // await CommentSeeder.Seeder()
-        await ReactSeeder.Seeder()
+        // await ReactSeeder.Seeder()
         // await FriendSeeder.Seeder()
         // console.log('ok');
     } catch (error) {

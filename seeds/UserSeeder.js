@@ -9,39 +9,50 @@ let Seeder = async (req, res,) => {
         password: hashPassword,
         first_name: 'Nguyễn Nhất',
         last_name: 'Vương',
-        avatar:'/images/logo99.png',
+        avatar:'https://scontent.fdad7-1.fna.fbcdn.net/v/t39.30808-6/312297714_206841441768622_8737112273700475545_n.jpg?_nc_cat=109&cb=99be929b-8d691acd&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=u-biDy2Rc3MAX_BlD8G&_nc_ht=scontent.fdad7-1.fna&oh=00_AfDGSut1JxfkbdzlYWOM4dnLmIQlmunHBKc41f6LSugM6A&oe=65B07E01',
         cover: faker.image.url(),
         role: 'admin',
         is_active: faker.datatype.boolean(),
     })
     await newUser1.save();
-    let newUser2 = new User({
-        email: 'doannhat@gmail.com',
-        password: hashPassword,
-        first_name: 'Phan Doãn',
-        last_name: 'Nhật',
-        avatar: faker.image.avatar(),
-        cover: faker.image.url(),
-        role: 'admin',
-        is_active: faker.datatype.boolean(),
-    })
-    await newUser2.save()
-    for (let index = 0; index < 100; index++) {
-        let gender = faker.person.sex()
-        var salt = bcrypt.genSaltSync(10)
-        let hashPassword = await bcrypt.hashSync('nhatvuong99', salt);
-        let newUser = new User({
-            email: faker.internet.email(),
-            password: hashPassword,
-            first_name: faker.person.firstName(gender),
-            last_name: faker.person.lastName(gender),
-            avatar: faker.image.avatar(),
-            cover: faker.image.url(),
-            friend_count: faker.string.numeric(),
-            is_active: faker.datatype.boolean(),
-        })
-        await newUser.save()
-    }
+    // let newUser2 = new User({
+    //     email: 'doannhat@gmail.com',
+    //     password: hashPassword,
+    //     first_name: 'Phan Doãn',
+    //     last_name: 'Nhật',
+    //     avatar: faker.image.avatar(),
+    //     cover: faker.image.url(),
+    //     role: 'admin',
+    //     is_active: faker.datatype.boolean(),
+    // })
+    // await newUser2.save()
+    // let newUser3 = new User({
+    //     email: 'tuyetni@gmail.com',
+    //     password: hashPassword,
+    //     first_name: 'Tuyết',
+    //     last_name: 'Ni',
+    //     avatar: faker.image.avatar(),
+    //     cover: faker.image.url(),
+    //     role: 'user',
+    //     is_active: faker.datatype.boolean(),
+    // })
+    // await newUser3.save()
+    // for (let index = 0; index < 100; index++) {
+    //     let gender = faker.person.sex()
+    //     var salt = bcrypt.genSaltSync(10)
+    //     let hashPassword = await bcrypt.hashSync('nhatvuong99', salt);
+    //     let newUser = new User({
+    //         email: faker.internet.email(),
+    //         password: hashPassword,
+    //         first_name: faker.person.firstName(gender),
+    //         last_name: faker.person.lastName(gender),
+    //         avatar: faker.image.avatar(),
+    //         cover: faker.image.url(),
+    //         friend_count: faker.string.numeric(),
+    //         is_active: faker.datatype.boolean(),
+    //     })
+    //     await newUser.save()
+    // }
     console.log('user saved successfully')
 }
 

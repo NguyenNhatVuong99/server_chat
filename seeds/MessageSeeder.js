@@ -40,25 +40,31 @@ let getConversation = async () => {
 }
 
 let Seeder = async (req, res,) => {
-    
+    try {
+        await Message.deleteMany({});
+        console.log("Message deleted.");
+    } catch (error) {
+        console.log(error);
+    }
     let conversations = await getConversation()
     conversations.forEach(item => {
         for (let index = 0; index < limit; index++) {
-            let startDate = new Date('2023-11-01T00:00:00.000Z');
-            let endDate = new Date('2023-12-18T00:00:00.000Z');
-            let createdAt = faker.date.between(startDate, endDate);
-
+            let startDate = new Date('2024-1-10T00:00:00.000Z');
+            let endDate = new Date('2023-1-12T00:00:00.000Z');
+            let createdAt = faker.date.between({startDate, endDate});
             let user_id = (index % 2 == 0) ? item['users'][0] : item['users'][1]
             let newMessage = new Message({
                 conversation_id: item['_id'],
                 user_id: user_id,
                 content: faker.lorem.sentences(2),
+                unread: true,
                 createdAt: createdAt,
-                updatedAt: createdAt
+                updatedAt: createdAt,
             })
             newMessage.save()
         }
     });
+    console.log('success');
 
 }
 
