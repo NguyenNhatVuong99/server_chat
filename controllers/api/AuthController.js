@@ -1,6 +1,7 @@
 let User = require("../../models/User")
 let AuthValidator = require("../../validations/auth")
 var bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 let login = async (req, res) => {
     const { error } = AuthValidator.loginValidator(req.body)
@@ -13,19 +14,24 @@ let login = async (req, res) => {
     let user = await User.findOne({ email: email })
     if (!user) {
         return res.status(400).json(
-            { message: "Email không đúng kìa ku" }
+            { message: "Email or password is incorrect" }
         );
     }
     let checkPassword = await bcrypt.compare(password, user.password)
     if (!checkPassword) {
         res.status(400).json(
-            { message: "Password không đúng kìa ku" }
+            { message: "Email or password is incorrect" }
         );
     } else {
-        req.session.userId= user._id
-        let role = (user.role == "admin") ? "admin" : "";
+        const full_name = user.lastName + " " + user.firstName
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
         res.status(200).json({
-            role: role,
+            token: token,
+            role: user.role,
+            userId: user._id,
+            full_name: full_name,
+            avatar: user.avatar,
             message: "Đăng nhập thành công"
         })
     }

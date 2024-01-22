@@ -49,8 +49,8 @@ let Seeder = async (req, res,) => {
     let conversations = await getConversation()
     conversations.forEach(item => {
         for (let index = 0; index < limit; index++) {
-            let startDate = new Date('2024-1-10T00:00:00.000Z');
-            let endDate = new Date('2023-1-12T00:00:00.000Z');
+            let startDate = new Date('2022-1-10T00:00:00.000Z');
+            let endDate = new Date('2024-1-12T00:00:00.000Z');
             let createdAt = faker.date.between({startDate, endDate});
             let user_id = (index % 2 == 0) ? item['users'][0] : item['users'][1]
             let newMessage = new Message({

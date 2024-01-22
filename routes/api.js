@@ -12,6 +12,7 @@ router.post("/login", AuthController.login)
 router.post("/register", AuthController.register)
 router.get("/logout", AuthController.logout)
 router.group("/users", (router) => {
+    router.get("/search",UserController.search)
     router.get("/", UserController.index);
     router.get("/create", UserController.create);
     router.post("/", UserController.store);
@@ -51,7 +52,7 @@ router.group("/conversations", (router) => {
     // router.get("/", ConversationController.index);
     // router.get("/:id", ConversationController.index);
     router.get("/user/:id", ConversationController.user);
-    router.post("/message", ConversationController.message);
+    router.get("/:id", ConversationController.message);
     // router.get("/create", ConversationController.create);
     // router.post("/", ConversationController.store);
     // router.get("/:id", ConversationController.show);

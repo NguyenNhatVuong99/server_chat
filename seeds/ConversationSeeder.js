@@ -26,8 +26,9 @@ let getUser2 = async () => {
     }
 }
 let getUsers = async () => {
+    let user = await getUser1();
     try {
-        return await User.find({ _id: { $ne: '65a89222784268eee668e590' } }, "_id")
+        return await User.find({ _id: { $ne: user._id } }, "_id")
             .limit(limit)
     } catch (error) {
         console.log(error);
@@ -45,7 +46,7 @@ const Seeder = async (req, res,) => {
     //     console.log(error);
     // }
     // let user1 = await getUser1()
-    // // let user2 = await getUser2()
+    // let user2 = await getUser2()
     // let users = await getUsers()
     // let arr = [user1["_id"], user2["_id"]];
     // let newConver = new Conversation({
@@ -66,7 +67,6 @@ const Seeder = async (req, res,) => {
     // }
     let conversations = await getConversation();
 
-    // Use Promise.all to wait for all asynchronous operations to complete
     await Promise.all(conversations.map(async (item) => {
         let conver_id = item['_id'];
         try {

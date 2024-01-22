@@ -5,10 +5,11 @@ mongoose.set('strictQuery', true);
 
 async function connect() {
 	try {
-		await mongoose.connect(url);
+		await mongoose.connect(url,{
+		});
 		console.log("database connected");
 	} catch (error) {
-		console.error("error: "+error);
+		console.error("error: " + error);
 	}
 }
 module.exports = { connect }

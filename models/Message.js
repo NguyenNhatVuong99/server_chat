@@ -17,6 +17,10 @@ const MessageSchema = new Schema({
     content: {
         type: String
     },
+    unread: {
+        type: Boolean,  // Corrected type to Boolean
+        default: true   // You might want to set a default value
+    }
 },
     {
         timestamps: true

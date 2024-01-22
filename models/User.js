@@ -10,11 +10,11 @@ const UserSchema = new Schema({
         type: String,
         require: true,
     },
-    first_name: {
+    full_name: {
         type: String,
         require: true,
     },
-    last_name: {
+    full_name_without_diacritics: {
         type: String,
         require: true,
     },

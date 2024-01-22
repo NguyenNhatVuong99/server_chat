@@ -9,16 +9,16 @@ var session = require('express-session')
 var bcrypt = require('bcrypt');
 var Router = require('named-routes');
 var router = new Router();
+const cors = require('cors');
 
 require("./config/database").connect()
-
-
 
 // pusher.trigger("my-channel", "my-event", {
 //   message: "hiiii"
 // });
 
 var app = express();
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
