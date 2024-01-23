@@ -12,8 +12,8 @@ let getUser = async () => {
 const Seeder = async (req, res,) => {
     let users = await getUser()
     for (let index = 0; index < limit; index++) {
-        var post_id =new mongoose.Types.ObjectId();
-        let arr= []
+        var post_id = new mongoose.Types.ObjectId();
+        let arr = []
         for (let j = 0; j < 5; j++) {
             var cmt_id = new mongoose.Types.ObjectId();
             let random = Math.floor(Math.random() * limit)
@@ -28,14 +28,17 @@ const Seeder = async (req, res,) => {
         }
         let random = Math.floor(Math.random() * limit)
         let user_id = users[random]["_id"]
-        let index = Math.floor(Math.random() * 5)+1
+        let index = Math.floor(Math.random() * 5) + 1
+        let startDate = new Date('2024-01-01T00:00:00.000Z');
+        let endDate = new Date('2024-01-20T00:00:00.000Z');
+        let updatedAt = faker.date.between({ startDate, endDate });
         let newPost = new Post({
-            _id : post_id,
+            _id: post_id,
             content: faker.lorem.sentences(index),
             user_id: user_id,
-            file_url: faker.image.image(),
-            comments:arr,
-            createdAt:faker.date.between('2022-11-01T00:00:00.000Z', '2022-12-18T00:00:00.000Z')
+            file_url: faker.image.url(),
+            comments: arr,
+            createdAt: faker.date.between({ startDate, endDate })
         })
         await newPost.save()
     }

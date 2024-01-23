@@ -17,7 +17,9 @@ const Seeder = async (req, res,) => {
     let posts = await getPost()
     for (let index = 0; index < posts.length; index++) {
         let post_id = posts[index]["_id"]
-        let createdAt = faker.date.between('2022-11-01T00:00:00.000Z', '2022-12-18T00:00:00.000Z')
+        let startDate = new Date('2024-01-01T00:00:00.000Z');
+        let endDate = new Date('2024-01-20T00:00:00.000Z');
+        let createdAt = faker.date.between({ startDate, endDate });
         let comments = posts[index]["comments"]
         let arr = []
         for (let j = 0; j < 5; j++) {
