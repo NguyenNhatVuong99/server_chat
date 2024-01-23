@@ -29,20 +29,20 @@ let create = async (req, res) => {
 }
 const store = async (req, res) => {
     try {
-        // const pusher = new Pusher({
-        //     appId: "1529122",
-        //     key: "44e9d951732245c631b5",
-        //     secret: "1b630a54a02fc3b5b403",
-        //     cluster: "ap1",
-        //     useTLS: true
-        // });
-
-        let { content, conversation_id, user_id } = req.body;
+        const pusher = new Pusher({
+            appId: "1745392",
+            key: "ef136162ebafbc149f55",
+            secret: "3705ce1977b317f43be5",
+            cluster: "mt1",
+            useTLS: true
+        });
+        let { content, conversation_id, user_id, other_user_id } = req.body;
         // Save the new message
         let newMessage = new Message({
             content,
             conversation_id,
-            user_id
+            user_id,
+            other_user_id
         });
 
         await newMessage.save();
@@ -65,7 +65,9 @@ const store = async (req, res) => {
         }
 
         // If you need to emit events or trigger other actions, you can do it here
-
+        pusher.trigger(`conversation-${conversation_id}`, "new-messenger", {
+            user_id: other_user_id
+        });
         res.status(200).json({ success: true, data: updatedConversation });
     } catch (error) {
         console.error(error);

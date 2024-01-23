@@ -32,6 +32,8 @@
     "pejs": "^0.6.5",
     "pusher": "^5.2.0",
     "redis": "^4.6.12",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
     "unorm": "^1.6.0"
   }
 }

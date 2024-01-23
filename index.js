@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 var Router = require('named-routes');
 var router = new Router();
 const cors = require('cors');
-
+const Pusher = require("pusher")
 require("./config/database").connect()
 
 // pusher.trigger("my-channel", "my-event", {
@@ -50,6 +50,12 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+});
+const pusher = new Pusher({
+    app_id: "1745392",
+    key: "ef136162ebafbc149f55",
+    secret: "3705ce1977b317f43be5",
+    cluster: "mt1"
 });
 let port = process.env.PORT || 8080
 app.listen(port, () => {
