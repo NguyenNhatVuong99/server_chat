@@ -1,10 +1,10 @@
 let bcrypt = require('bcryptjs');
 let { faker } = require('@faker-js/faker/locale/vi');
 
-let User = require('../models/users')
-let PostReact = require('../models/post_react')
-let Post = require('../models/posts')
-let React = require('../models/reacts')
+let User = require('../models/User')
+let PostReact = require('../models/PostReact')
+let Post = require('../models/Post')
+let React = require('../models/React')
 let limit = 100;
 let getUser = async () => {
     return await User.find({}, '_id').limit(limit)
@@ -16,7 +16,7 @@ let getReact = async () => {
     return await React.find({}, '_id').limit(limit)
 }
 
-const PostReactSeeder = async (req, res,) => {
+const Seeder = async (req, res,) => {
     let users = await getUser()
     let post = await getPost()
     let react = await getReact()
@@ -33,7 +33,8 @@ const PostReactSeeder = async (req, res,) => {
         })
         await newPostReact.save()
     }
+    console.log('post react');
 
 }
 
-module.exports = { PostReactSeeder }
+module.exports = { Seeder }

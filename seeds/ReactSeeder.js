@@ -1,6 +1,12 @@
 let React = require('../models/React')
 
 const Seeder = async (req, res,) => {
+     try {
+        await React.deleteMany({});
+        console.log("React deleted.");
+    } catch (error) {
+        console.log(error);
+    }
     let Like = new React({
         title: "Like",
         content: `<div class="emoji emoji--like">

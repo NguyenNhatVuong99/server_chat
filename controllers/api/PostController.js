@@ -2,6 +2,7 @@ let Post = require("../../models/Post")
 let User = require("../../models/User")
 let Comment = require("../../models/Comment")
 let index = async (req, res) => {
+    // console.log('ok');
     Post.find()
         .populate('user_id', '-password')
         .populate('comments')

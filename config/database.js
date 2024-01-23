@@ -4,12 +4,13 @@ const url = "mongodb+srv://nhatvuong99vn:nhatvuong99@cluster0.vypleto.mongodb.ne
 mongoose.set('strictQuery', true);
 
 async function connect() {
-	try {
-		await mongoose.connect(url,{
-		});
-		console.log("database connected");
-	} catch (error) {
-		console.error("error: " + error);
-	}
+
+	mongoose.connect(url, {
+	},).then((res) => {
+		console.log("Database connected");
+	}).catch(error => {
+		console.log(error);
+	});
 }
+
 module.exports = { connect }
