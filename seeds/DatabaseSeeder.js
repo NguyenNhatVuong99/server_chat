@@ -10,9 +10,9 @@ let PostReactSeeder = require("./PostReactSeeder")
 let DataSeeder = async () => {
     try {
         // await UserSeeder.Seeder()
-        await PostReactSeeder.Seeder()
-        // await MessageSeeder.Seeder()
-        // await ConversationSeeder.Seeder()
+        // await PostReactSeeder.Seeder()
+        await MessageSeeder.Seeder()
+        await ConversationSeeder.Seeder()
         // await CommentSeeder.Seeder()
         // await ReactSeeder.Seeder()
         // await FriendSeeder.Seeder()

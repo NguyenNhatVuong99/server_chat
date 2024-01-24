@@ -40,12 +40,12 @@ let getConversation = async () => {
 }
 
 let Seeder = async (req, res,) => {
-    try {
-        await Message.deleteMany({});
-        console.log("Message deleted.");
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     await Message.deleteMany({});
+    //     console.log("Message deleted.");
+    // } catch (error) {
+    //     console.log(error);
+    // }
     let conversations = await getConversation()
     conversations.forEach(item => {
         for (let index = 0; index < limit; index++) {

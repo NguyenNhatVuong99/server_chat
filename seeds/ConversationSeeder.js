@@ -45,9 +45,9 @@ const Seeder = async (req, res,) => {
     // } catch (error) {
     //     console.log(error);
     // }
-    // let user1 = await getUser1()
-    // let user2 = await getUser2()
-    // let users = await getUsers()
+    let user1 = await getUser1()
+    let user2 = await getUser2()
+    let users = await getUsers()
     // let arr = [user1["_id"], user2["_id"]];
     // let newConver = new Conversation({
     //     users: arr
